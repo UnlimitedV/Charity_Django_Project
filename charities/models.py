@@ -8,13 +8,13 @@ class Benefactor(models.Model):
         (1, 'Intermidiate'), 
         (2, 'Advanced')
     )
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     experience = models.SmallIntegerField(choices=choices, default=0)
     free_time_per_week = models.PositiveSmallIntegerField(default=0)
 
 
 class Charity(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     reg_number = models.CharField(max_length=10)
 
@@ -32,7 +32,7 @@ class Task(models.Model):
         ('D', 'Done')
     )
     assigned_benefactor = models.ForeignKey(Benefactor, null=True, on_delete=models.SET_NULL)
-    charity = models.ForeignKey(Charity)
+    charity = models.ForeignKey(Charity, on_delete=models.CASCADE)
     age_limit_from = models.IntegerField(blank=True, null=True)
     date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
