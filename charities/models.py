@@ -34,6 +34,7 @@ class Task(models.Model):
     assigned_benefactor = models.ForeignKey(Benefactor, null=True, on_delete=models.SET_NULL)
     charity = models.ForeignKey(Charity, on_delete=models.CASCADE)
     age_limit_from = models.IntegerField(blank=True, null=True)
+    age_limit_to = models.IntegerField(blank=True, null=True)
     date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     gender_limit = models.CharField(max_length=1, choices=gchoices, blank=True, null=True)
