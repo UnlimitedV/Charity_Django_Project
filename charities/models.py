@@ -19,6 +19,20 @@ class Charity(models.Model):
     reg_number = models.CharField(max_length=10)
 
 
+class TaskManager(models.Manager):
+    def related_tasks_to_charity(self, user):
+        query = self.filter(charity__user = user)
+        return query
+
+    def related_tasks_to_benefactor(self, user):
+        query = self.filter(assigned_benefactor__user = user)
+        return query
+
+    def all_related_tasks_to_user(self, user):
+        q = models.Q(charity__user = user) | models.Q(assigned_benefactor__user = user) | models.Q(state = 'P')
+        query = self.filter(q)
+        return query
+
 class Task(models.Model):
     gchoices = (
         ('F', 'Female'), 
@@ -41,3 +55,4 @@ class Task(models.Model):
     state = models.CharField(choices=schoices, max_length=1, default='P')
     title = models.CharField(max_length=60)
 
+    objects = TaskManager()
