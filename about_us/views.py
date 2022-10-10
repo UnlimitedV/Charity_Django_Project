@@ -1,6 +1,9 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import render
-from accounts.models import User
+
 
 def about_us(request):
-    query = User.objects.all()
-    return render(request, 'about_us.html', {'users': query})
+    context = {
+        'members': get_user_model().objects.all()
+    }
+    return render(request, 'about_us.html', context)
