@@ -20,8 +20,4 @@ class LogoutAPIView(APIView):
 
 
 class UserRegistration(generics.CreateAPIView):
-    def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({"message": "created"}, status=status.HTTP_201_CREATED)
+    serializer_class = UserSerializer
